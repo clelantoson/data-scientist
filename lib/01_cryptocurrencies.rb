@@ -11,22 +11,24 @@ prices = ["$6558.07", "$468.95", "$0.487526", "$762.84", "$8.86", "$85.26", "$0.
 
 #puts crypto
 
-# crypto.each do |devises, prices| 
-#     prices = prices[1...-1] prices.map! {|price| price - "$" }
-#    prices_numbers =  prices.to_f
-#    prices_numbers.sort
-#    #puts prices_numbers
-#    #puts prices.sort
-#    puts prices_numbers.sort
-# end
-# #puts prices.to_f
+crypto.each do |devise, price| 
+    price.slice!(0)  #on a enlevé le $
+    crypto[devise] = price.to_f
+end
+
+highest_value = crypto.values.sort.last
+lowest_value = crypto.values.sort.first
+
+
+puts "La cryptomonnaie la plus chère est #{crypto.key(highest_value)} avec #{highest_value}."
+puts "La crypto la plus chère est #{crypto.key(lowest_value)} avec #{lowest_value}."
 
 coincoin = []
-    crypto.map do |devises, prices| 
-        if devises.match (/[Cc][Oo][Ii][Nn]/)
-            puts devises
-            puts devises.match (/[Cc][Oo][Ii][Nn]/)
-        coincoin << devises
+crypto.each do |devise, price| 
+    if devise.match (/[Cc][Oo][Ii][Nn]/)
+        # puts devises
+        # puts devises.match (/[Cc][Oo][Ii][Nn]/)
+        coincoin << devise
     end
 end
 
@@ -35,3 +37,17 @@ puts "Nous avons #{coincoin.length} cryptomonnaies comportant coin dans leur nom
 # puts devises_coin
 # puts coincoin
 # puts coincoin.length
+
+devises_inf_a_6000 = {}
+crypto.each do |devise, price| 
+    if price < 6000
+        devises_inf_a_6000[devise] = price
+    end
+end
+
+puts devises_inf_a_6000 #ici on a les devises inferieures à 6000
+
+highest_value_inf6000 = devises_inf_a_6000.values.sort.last
+
+puts "La cryptomonnaie la plus chère est #{devises_inf_a_6000.key(highest_value_inf6000)} avec #{highest_value_inf6000}."
+

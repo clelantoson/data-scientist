@@ -3,28 +3,31 @@ journalists = ["@jcunniet","@PaulLampon","@Aziliz31","@ssoumier","@marionsouzeau
 
 
 journalist_with_num = []
-i = 1
-aude = []
-maj_deb = []
-maj = []
-underscore = []
-sorted = []
-shortest = []
 
     journalists.each do |handle|
-        for i in 0...10
-            if handle.include? "#{i}"
-                journalist_with_num << handle
-            end
-       end
+        if handle.match (/[0..9]/)
+            journalist_with_num << handle
+        end
     end
-
-
+    # i = 1
+    # journalists.each do |handle|
+    #     for i in 0...10
+    #         if handle.include? "#{i}"
+    #             journalist_with_num << handle
+    #         end
+    #    end
+    # end  
+    #Autre facon de faire mais + compliqué
+   
+    aude = []
+    
     journalists.each do |handle|
-        if handle.match (/[Aa][Uu][Dd][Ee]/)
+        if handle.match (/[Aa][Uu][Dd][Ee]/) #entre crochets ca veut dire par ex chercher A ou a pour matcher
             aude << handle
         end
     end
+
+    maj_deb = []
 
     journalists.each do |handle|
         if handle.match (/@[A-Z]/)
@@ -32,11 +35,15 @@ shortest = []
         end
     end
 
+    maj = []
+
     journalists.each do |handle|
         if handle.match (/[A-Z]/)
             maj << handle
         end
     end
+
+    underscore = []
 
     journalists.each do |handle|
         if handle.match (/[_]/)
@@ -44,16 +51,18 @@ shortest = []
         end
     end
 
+
+
     def top_50 (journalists)
-        puts journalists.sort_by(&:length).values_at(0..49)  # or instead of values use .first(50)
+        puts journalists.sort_by{|journalist| journalist.length}.first(50)  # or instead we can use .values_at(0..50)
     end
+
 
     def index_epenser (journalists)
     puts journalists.index("@epenser") 
     end
         
         
-       
 
     puts "Notre base de données de la mort contient #{journalists.length} handle de journalistes."
     puts "Notre base de données de la mort contient #{journalist_with_num.uniq.length} handle avec des numéros."
@@ -62,7 +71,7 @@ shortest = []
     puts "#{maj.length} handle contiennent une majuscule."
     puts "#{underscore.length} handle contiennent un underscore."
     puts "I sorted this array a bit : #{journalists.sort}"
-     puts "The 50 shortest handle are.... : #{top_50 (journalists)}"
+    puts "The 50 shortest handle are.... : #{top_50 (journalists)}"
     puts "You can find @epenser at index #{index_epenser(journalists)}."
 
 
